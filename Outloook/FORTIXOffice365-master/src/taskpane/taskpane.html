@@ -1,0 +1,56 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FORTIX Connect</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Office JavaScript API -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
+    <!-- <script src="jqueryjs.js"></script> -->
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric" style="display: noblockne;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pb-3">
+        <img  src="../../assets/logo.png" class="float-right" alt="Contoso" title="Contoso" />
+    </div>
+        <!-- <h1 class="ms-font-su">Welcome</h1> -->
+</div>
+    <section id="sideload-msg" class="ms-welcome__main text-center">
+        <!-- <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2> -->
+        
+    </section>
+    <main class="ms-welcome__main" style="display: block;">
+        <p class="ms-font-l1 ">Welcome to FORTIX Connect for Office365 & Outlook. With this plugin you can enjoy pushing emails directly into FORTIX Services CRM.</p>
+        <button id="login" class="myButton">Sign In</button>
+        <p class="ms-font-s"><i>Don't have an Account?</i> <a href="https://fortix.systems" target="_blank">Sign Up</a></p>
+        <div style="height: 20px;"></div>
+        <hr class="new2"> 
+        <p class="ms-font-l1">Innovated By <a href="https://www.blue-bricks.com" target="_blank">www.blue-bricks.com</a></p>
+    </main>
+</div>
+    <script src="./node_modules/urijs/src/URI.js"></script>
+    <script type="text/javascript" src="./src/helpers/helper.js"></script>
+</body>
+</html>

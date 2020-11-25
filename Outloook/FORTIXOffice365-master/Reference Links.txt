@@ -1,0 +1,2 @@
+Publish Office 365 Add In:
+https://docs.microsoft.com/en-us/office/dev/add-ins/publish/publish-add-in-vs-code#publishing-an-add-in-for-other-users-to-access

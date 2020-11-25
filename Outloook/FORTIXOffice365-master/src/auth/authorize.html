@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Fortix</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+        
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../../node_modules/urijs/src/URI.min.js"></script>
+    <!-- <script type="text/javascript" src="dialog.js"></script> -->
+    <style>
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .flex-container>div {
+            background-color: #f3f3f369;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            width: 30rem;
+            height: auto;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .footer {
+            border-top: 1px solid #ccc;
+        }
+
+        .error-display {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="flex-container">
+            <div>
+                <img src="../../assets/fortix_dialog_img_black.jpg" class="img-fluid" style="width: 150px;"><br><br>
+
+                <div class="error-display">
+                    <pre><code id="error-text"></code></pre>
+                </div>
+
+                <div class="input-group" style="padding: 5px 0px;">
+                    <input type="text" class="form-control" id="domain" placeholder="System Domain" name="domain"
+                        style="padding: 24px 10px;">
+                    <span class="input-group-text">.fortix.systems</span>
+                </div>
+                <div class="input-group" style="padding: 5px 0px;">
+                    <input type="email" class="form-control" id="email" placeholder="Your email address" name="email"
+                        style="padding: 24px 10px;">
+                </div>
+                <div class="input-group" style="padding: 5px 0px 15px 0px;">
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"
+                        style="padding: 24px 10px;">
+                </div>
+                <div class="footer">
+                    <button type="submit" class="btn btn-outline-secondary mt-3"
+                        style="float: right;padding: 8px 32px;" id="do-login">Submit</button>
+                </div>
+            </div>
+            <!-- <div class="footer">
+                <a href='https://office-fortix.blue-bricks.com/dialog.html'>
+                    <button type="button" class="btn btn-outline-secondary mt-3"
+                    style="float: right;padding: 8px 32px;" id="do-call">Login To Fortix</button>
+                </a>
+            </div> -->
+        </div>
+    </div>
+    <script>
+        (function () {
+            "use strict";
+
+            jQuery(document).ready(function () {
+                // When the Done button is selected, send the
+                // values back to the caller as a serialized
+                // object.
+                $("#do-login").on("click", function () {
+                    console.log("login clicked!!")
+                    var fUser = $("#email").val();
+                    var fPassword = $("#pwd").val();
+                    var domain = $("#domain").val();
+                    var fURL = "https://" + domain + ".fortix.systems"
+                    var apiKey = "zMJDQmz1j6LPNKqEfsLMGM8XFwuZMyU9F1h02hDRESE8wxNrQ1h4HwaWqADFnRjy";
+                    var checkAPIEndpoint = "/dataapi/v1/Login/check";
+                    var loginAPIEndpoint = "/dataapi/v1/Login/login";
+                    var callbackURL = getParameterByName('callback', window.location.search);
+
+                    if (fUser && fPassword && fURL) {
+                        var validURL = doURLCheck(fURL + checkAPIEndpoint, apiKey);
+                        if (validURL) {
+                            var loginData = {
+                                "username": fUser,
+                                "password": fPassword
+                            }
+                            var loginSuccess = doLogin(loginData, fURL + loginAPIEndpoint, apiKey);
+                            if (loginSuccess.error) {
+                                // var messageObject = { messageType: "signinFailure", data: loginSuccess.data };
+                                // var jsonMessage = JSON.stringify(messageObject);
+                                // Office.context.ui.messageParent(jsonMessage);
+                                $("#error-text").text(loginSuccess.data.errorMessage);
+                                $(".error-display").css("color", "red");
+                                $(".error-display").show();
+                            } else {
+                                $("#error-text").text("Login Success!!");
+                                $(".error-display").css("color", "green");
+                                $(".error-display").show();
+
+                                // var messageObject = { messageType: "signinSuccess", data: loginSuccess.data, loginURL: fURL };
+                                // var jsonMessage = JSON.stringify(messageObject);
+                                // Office.context.ui.messageParent(jsonMessage);
+                                var queryString = '?token=' + loginSuccess.data.content.token + "&loginURL=" + fURL;
+                                window.location.href = callbackURL + queryString;
+                            }
+                        } else {
+                            $("#error-text").text("Invalid Base URL!!");
+                            $(".error-display").css("color", "red");
+                            $(".error-display").show();
+                        }
+                    } else {
+                        $("#error-text").text("Username or Password or Base URL cannot be empty!!");
+                        $(".error-display").css("color", "red");
+                        $(".error-display").show();
+                    }
+                });
+            });
+
+            function doLogin(json, url, apiKey) {
+                var result = null;
+                console.log("login url: " + url);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Ff3-Api-Key": apiKey
+                    },
+                    processData: false,
+                    data: JSON.stringify(json),
+                    success: function (response) {
+                        console.log("Login Success!!")
+                        result = {
+                            error: 0,
+                            data: response
+                        }
+                    },
+                    error: function (response) {
+                        console.error("Login Failed!!")
+                        result = {
+                            error: 1,
+                            data: response.responseJSON
+                        }
+                    }
+                });
+                return result;
+            }
+
+            function doURLCheck(URL, apiKey) {
+                var result = null;
+                console.log("test connection with url: " + URL);
+                $.ajax({
+                    type: 'GET',
+                    async: false,
+                    url: URL,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Ff3-Api-Key": apiKey
+                    },
+                    success: function (response) {
+                        console.log("URL OKK!!");
+                        result =  true;
+                    },
+                    error: function (response) {
+                        console.error("Invalid URL!!")
+                        result = false;
+                    }
+                });
+
+                return result;
+            }
+
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+        })();
+    </script>
+</body>
+
+</html>

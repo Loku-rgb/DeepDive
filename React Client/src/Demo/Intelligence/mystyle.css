@@ -1,0 +1,87 @@
+.react-bootstrap-table table {
+    table-layout: auto;
+  }
+  /* .btn-primary {
+    color: "black";
+    background-color: #fff;
+    border-color: rgb(255, 255, 255);
+} */
+
+.btn-optin {
+  color: #fff;
+  background-color: #712687;
+  border-color: #9409b5;
+}
+
+.btn-optin.focus, .btn-optin:focus {
+  color: #fff;
+  filter:brightness(70%);
+}
+
+.btn-optin:hover {
+  color: #fff;
+  filter:brightness(85%);
+}
+
+.btn-optin.active, .btn-optin:active, .open > .dropdown-toggle.btn-optin {
+  color: #fff;
+  filter:brightness(70%);
+}
+
+.btn-optin.active.focus, .btn-optin.active:focus, .btn-optin.active:hover, .btn-optin:active.focus, .btn-optin:active:focus, .btn-optin:active:hover, .open > .dropdown-toggle.btn-optin.focus, .open > .dropdown-toggle.btn-optin:focus, .open > .dropdown-toggle.btn-optin:hover {
+  color: #fff;
+  filter:brightness(70%);
+}
+
+.btn-optin.active, .btn-optin:active, .open > .dropdown-toggle.btn-optin {
+  color: #fff;
+  background-image: none;
+}
+
+.btn-optin.disabled.focus, .btn-optin.disabled:focus, .btn-optin.disabled:hover, .btn-optin[disabled].focus, .btn-optin[disabled]:focus, .btn-optin[disabled]:hover, fieldset[disabled] .btn-optin.focus, fieldset[disabled] .btn-optin:focus, fieldset[disabled] .btn-optin:hover {
+  color: #fff;
+}
+
+.btn-optin .badge {
+  color: #fff;
+}
+
+.checkbox-custom {
+  opacity: 0;
+  position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.checkbox-custom + .checkbox-custom-label:before {
+  content: '';
+  background: #fff;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 5px;
+  border: solid blue;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  border-radius: 0px;
+  margin: 0px 15px 5px 5px;
+}

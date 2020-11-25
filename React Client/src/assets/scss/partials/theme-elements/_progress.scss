@@ -1,0 +1,48 @@
+/**  =====================
+      Progress css start
+==========================  **/
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 16px 0;
+    }
+
+    to {
+        background-position: 0 0;
+    }
+}
+
+.progress {
+    height: 12px;
+    font-size: 10px;
+    background-color: $theme-background;
+    border-radius: 0;
+    overflow: visible;
+}
+
+.progress-bar {
+    background-color: $primary-color;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+    @each $value in $color-name {
+        $i: index($color-name, $value);
+
+        &.progress-#{$value} {
+            background: nth($color-color,$i),;
+        }
+    }
+    &.progress-c-theme {
+        background: $theme-color;
+    }
+    &.progress-c-theme2 {
+        background: $theme-color2;
+    }
+    &.progress-c-theme3 {
+        background: $theme-color3;
+    }
+    &.progress-c-theme4 {
+        background: $theme-color4;
+    }
+    &.progress-c-theme5 {
+        background: $theme-color5;
+    }
+}
+/**====== Progress css end ======**/
